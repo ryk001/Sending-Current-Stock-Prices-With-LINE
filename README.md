@@ -44,7 +44,7 @@ def fugle_get_stock_price(portfolio):
   api_client = HttpClient(api_token = '填入你申請的富果金鑰')
 ```
 
-開爬！
+### 1-3. 開爬！
 - 用for loop 依序 run 過股票代號 list
 - 依序取得...股票名稱、昨日股價、即時股價、日期、即時股價更新時間
 - 然後填入 DafaFrame 相對應的欄位
