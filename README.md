@@ -1,4 +1,4 @@
-# 教你如何透過 LINE Notify 定時自動傳送即時股價通知
+# 透過 LINE Notify 定時自動傳送即時股價通知
 <span style="color:red;">**重點提示：本程式僅限玉山證券富果帳戶**</span>
 
 (非業配，但好像除了永豐/ 富果沒有其他券商提供即時股價Python API了?)
@@ -111,12 +111,14 @@ def lineNotifyMessage(token, msg):
     return r.status_code
 ```
 
-### 4. 上述所有步驟一氣呵成!
+### 4. 成果展示
 
 ```python
 stock_price_dataframe = fugle_get_stock_price(portfolio_list)
 message = generate_message(stock_price_dataframe)
 lineNotifyMessage(token, message)
 ```
+![run](https://s2.loli.net/2022/12/06/QgBqkdvthirKUD7.png)
+(由於現在非開盤時間，所以以最後收盤價為準)
 
 ### 5. 實現定時自動通知
