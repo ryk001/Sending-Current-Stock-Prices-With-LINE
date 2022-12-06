@@ -127,7 +127,10 @@ lineNotifyMessage(token, message)
 
 ### 5. 實現定時自動通知
 
-### 5.1 部署 
+### 5.1 部署
+- Fork至自己的帳號底下
+- 設定yml文件
+
 
 ### 5.2 添加 Fugle Api , LINE Notify 金鑰
 
