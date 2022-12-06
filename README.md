@@ -123,7 +123,7 @@ lineNotifyMessage(token, message)
 ```
 ![run](https://s2.loli.net/2022/12/06/QgBqkdvthirKUD7.png)
 
-(由於現在非開盤時間，所以以最後收盤價為準)
+(由於在非開盤時間傳送通知，所以會得到最後收盤價)
 
 ### 5. 實現定時自動通知
 
