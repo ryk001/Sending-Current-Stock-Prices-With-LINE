@@ -1,9 +1,9 @@
-# 透過 LINE Notify 定時自動傳送即時股價通知
+# 手把手教你透過 LINE Notify 定時自動傳送即時股價通知
 <span style="color:red;">**重點提示：本程式僅限玉山證券富果帳戶**</span>
 
 (非業配，但好像除了永豐/ 富果沒有其他券商提供即時股價Python API了?)
 
-### 0. 匯入套件、決定要爬哪些股票 (超級韭菜投資組合)
+### 0. 匯入套件、決定要哪些股票通知
 
 ```python
 import requests
@@ -11,11 +11,12 @@ from fugle_realtime import HttpClient
 import pandas as pd
 import numpy as np
 
+# 超級韭菜投資組合
 portfolio_list = ['2330','2317','2609','3037','3034']
 ```
 
 ### 1. 爬取即時股價
-- 透過 Fugle Api 來實現，首先要取得金鑰，取得方式詳見這裡: https://developer.fugle.tw
+- 透過 Fugle Api 來實現，首先要申請金鑰，申請方式請參考: https://developer.fugle.tw
 - 建立一個函數，並且變數是前面的股票代號 list
 
 ```python
@@ -81,6 +82,8 @@ def fugle_get_stock_price(portfolio):
 ### 2. 將數據整理成 Line 訊息
 這部分就...自由發揮啦~
 
+Line 訊息粗體字、斜體字、紅字等等輸入方法參考: https://finance.ettoday.net/news/1911692
+
 ```python
 def generate_message(stock_price_dataframe):
   # 標題: 價格播報/ 日期/ 時間
@@ -94,7 +97,7 @@ def generate_message(stock_price_dataframe):
 ```
 
 ### 3. 利用 LINE Notify 傳送通知
-這部分要先申請到 LINE Notify 金鑰，申請方式請參閱: https://notify-bot.line.me/zh_TW
+這部分要先申請到 LINE Notify 金鑰，申請方式請參考: https://notify-bot.line.me/zh_TW
 
 ```python
 # LINE Notify 金鑰
@@ -119,6 +122,15 @@ message = generate_message(stock_price_dataframe)
 lineNotifyMessage(token, message)
 ```
 ![run](https://s2.loli.net/2022/12/06/QgBqkdvthirKUD7.png)
+
 (由於現在非開盤時間，所以以最後收盤價為準)
 
 ### 5. 實現定時自動通知
+
+### 5.1 部署 
+
+### 5.2 添加 Fugle Api , LINE Notify 金鑰
+
+### 5.3 啟用 Actions
+
+### 結語/ 注意事項
