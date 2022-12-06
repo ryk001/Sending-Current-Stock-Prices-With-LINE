@@ -128,9 +128,19 @@ lineNotifyMessage(token, message)
 ### 5. 實現定時自動通知
 
 ### 5.1 部署
-- Fork至自己的帳號底下
+- 项目地址：[github/Sending-Current-Stock-Prices-With-Line](https://github.com/ryk001/Sending-Current-Stock-Prices-With-Line.git)
+- 點擊右上角 Fork 項目至自己的帳號底下
+
+![run](https://s2.loli.net/2022/12/06/1ta8qHFNBWjQuUb.png)
+
 - 設定yml文件
 
+主要是設定 Cron 的部分
+```yml
+stock_price_dataframe = fugle_get_stock_price(portfolio_list)
+message = generate_message(stock_price_dataframe)
+lineNotifyMessage(token, message)
+```
 
 ### 5.2 添加 Fugle Api , LINE Notify 金鑰
 
