@@ -9,7 +9,7 @@
 - 設定各種金鑰
   - Fugle API 的金鑰，申請方式請參考: https://developer.fugle.tw
   - LINE Notify API 的金鑰，申請方式請參考: https://notify-bot.line.me/zh_TW
-  - 這個 os.environ[] 是啥?! 放心，到了 "5. 實現定時自動通知" 會講解
+  - 這個 `os.environ[' ']` 是啥?! 放心，到了 "5. 實現定時自動通知" 會講解
 
 ```python
 import requests
@@ -140,7 +140,7 @@ lineNotifyMessage(LINE_NOTIFY_TOKEN, message)
 
 ### 5.2 添加 Fugle Api , LINE Notify 金鑰到 Secrets 裡面
 
-先按照如下操作進到 Secrets 頁面
+- 回到專案頁面，依次點擊`Settings`-->`Secrets`-->`New secret`
 
 ![run](https://s2.loli.net/2022/12/07/7lvh9u3ayXZkIAm.png)
 
@@ -151,7 +151,7 @@ lineNotifyMessage(LINE_NOTIFY_TOKEN, message)
 
 ### 5.3 設定yml文件
 - 主要是設定 Cron 的部分，這裡預設了每個週間的開盤時間 9:00~13:30 內，整點、30 分傳送股價通知一次
-- 詳細的 Cron 設定方式和語法，可以參考: https://crontab.guru/#*_*_*_*_*
+- 詳細的 Cron 設定方式和語法，可以參考: https://crontab.guru/#
 
 ```yml
 on:
@@ -167,7 +167,7 @@ on:
 
 呼應了最一開頭 .py 檔裡面的設定金鑰的部分，
 
-os.environ[] 就是為了引用 Secrets 的變數。
+`os.environ[' ']` 就是為了引用 Secrets 的變數。
 
 (可以回頭看看 Step 0.)
 
@@ -183,7 +183,10 @@ env:
 Actions 默認是關閉狀態，在 Fork 之後需要先手動執行一次，成功運行才會被激活。
 
 返回項目主頁面，點擊上方的`Actions`，再點擊右側的`Daily Fudan`，再點擊`Run workflow`
-返回项目主页面，点击上方的`Actions`，再点击左侧的`Daily Fudan`，再点击`Run workflow`
 
+![run](https://s2.loli.net/2022/12/07/jQufzoTSVdcbsn2.png)
 
 ### 結語/ 注意事項
+- 約每 60 天 Actions 會重設一次，要記得上 GitHub 重新手動 Run
+- GitHub 的 Actions 功能會延遲 5~30 分鐘，若有更可靠的自動化方法歡迎交流😍
+- 小弟不才，第一次寫 GitHub，若有什麼指教請大力一點
