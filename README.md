@@ -129,7 +129,9 @@ lineNotifyMessage(LINE_NOTIFY_TOKEN, message)
 ### 5. 實現定時自動通知
 
 這部分的透過 GitHub 的 Actions 功能實現，
+
 詳細來說是透過一個 yml 檔案來驅動我們的 .py 檔，
+
 可以理解成透過 yml 檔案 來和 Actions 功能互動。
 
 ### 5.1 複製這個專案到自己的帳號
