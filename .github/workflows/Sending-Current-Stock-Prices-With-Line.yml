@@ -10,8 +10,6 @@ on:
 
 env:
   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-  FUGLE_API_TOKEN: ${{ secrets.FUGLE_API_TOKEN }}
-  LINE_NOTIFY_TOKEN: ${{ secrets.LINE_NOTIFY_TOKEN }}
 
 jobs:
   scrape-latest:
@@ -28,5 +26,8 @@ jobs:
       - name: Install requirements
         run: pip install -r requirements.txt
       
-      - name: Send Message
+      - name: Run Python Code
+        env:
+          FUGLE_API_TOKEN: ${{ secrets.FUGLE_API_TOKEN }}
+          LINE_NOTIFY_TOKEN: ${{ secrets.LINE_NOTIFY_TOKEN }}
         run: python sending_current_stock_prices_with_line.py
