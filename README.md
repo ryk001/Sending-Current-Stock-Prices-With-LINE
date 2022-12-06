@@ -3,7 +3,13 @@
 
 (非業配，但好像除了永豐/ 富果沒有其他券商提供即時股價Python API了?)
 
-### 0. 匯入套件、決定要哪些股票通知
+### 0. 需要的東西先準備好
+- 匯入套件
+- 建立一個股票代號 list
+- 設定各種金鑰
+  - Fugle API 的金鑰，申請方式請參考: https://developer.fugle.tw
+  - LINE Notify API 的金鑰，申請方式請參考: https://notify-bot.line.me/zh_TW
+  - 這個 os.environ[] 是啥?! 放心，到了 "5. 實現定時自動通知" 會講解
 
 ```python
 import requests
@@ -13,19 +19,20 @@ import numpy as np
 
 # 超級韭菜投資組合
 portfolio_list = ['2330','2317','2609','3037','3034']
+
+# TOKEN
+FUGLE_API_TOKEN = os.environ['FUGLE_API_TOKEN']
+LINE_NOTIFY_TOKEN = os.environ['LINE_NOTIFY_TOKEN']
 ```
 
 ### 1. 爬取即時股價
-- 透過 Fugle Api 來實現，首先要申請金鑰，申請方式請參考: https://developer.fugle.tw
 - 建立一個函數，並且變數是前面的股票代號 list
 
 ```python
 def fugle_get_stock_price(portfolio):
 ```
 
-### 1-1. 建立一個空的DafaFrame
-(接下來填入資料用)
-
+### 1-1. 建立一個空的 DafaFrame 用來寫入資料
 - 欄位包含...股票代號、股票名稱、日期、即時股價更新時間、即時股價、昨日股價、股價變動%數
 - 指定股票代號欄位為導入的變數 (股票代號 list)
 
@@ -40,16 +47,14 @@ def fugle_get_stock_price(portfolio):
   stock_price_dataframe['ticker'] = portfolio
 ```
 ### 1-2. 開始爬取即時股價資訊
-- 設定 Fugle API 的金鑰
 - 用 for loop 依序 run 過股票代號 list
-- 依序取得...股票名稱、昨日股價、即時股價、日期、即時股價更新時間
-- 然後填入 DafaFrame 相對應的欄位
+- 依序取得 股票名稱、昨日股價、即時股價、日期、即時股價更新時間
+- 填入 DafaFrame 相對應的欄位
 - 利用昨日股價、即時股價計算報酬率
 - 最後吐出填好的 DafaFrame
 
 ```python
-  # Fugle API 金鑰
-  api_client = HttpClient(api_token = '填入你申請的富果金鑰')
+  api_client = HttpClient(api_token = FUGLE_API_TOKEN)
   
   for i in range(len(portfolio)):
     
@@ -97,12 +102,8 @@ def generate_message(stock_price_dataframe):
 ```
 
 ### 3. 利用 LINE Notify 傳送通知
-這部分要先申請到 LINE Notify 金鑰，申請方式請參考: https://notify-bot.line.me/zh_TW
 
 ```python
-# LINE Notify 金鑰
-token = '你的LINE Notify 金鑰'
-
 def lineNotifyMessage(token, msg):
     headers = {
         "Authorization": "Bearer " + token, 
@@ -119,7 +120,7 @@ def lineNotifyMessage(token, msg):
 ```python
 stock_price_dataframe = fugle_get_stock_price(portfolio_list)
 message = generate_message(stock_price_dataframe)
-lineNotifyMessage(token, message)
+lineNotifyMessage(LINE_NOTIFY_TOKEN, message)
 ```
 ![run](https://s2.loli.net/2022/12/06/QgBqkdvthirKUD7.png)
 
@@ -127,23 +128,62 @@ lineNotifyMessage(token, message)
 
 ### 5. 實現定時自動通知
 
-### 5.1 部署
+這部分的透過 GitHub 的 Actions 功能實現，
+詳細來說是透過一個 yml 檔案來驅動我們的 .py 檔，
+可以理解成透過 yml 檔案 來和 Actions 功能互動。
+
+### 5.1 複製這個專案到自己的帳號
 - 项目地址：[github/Sending-Current-Stock-Prices-With-Line](https://github.com/ryk001/Sending-Current-Stock-Prices-With-Line.git)
-- 點擊右上角 Fork 項目至自己的帳號底下
+- 點擊右上角 Fork 專案至自己的帳號底下
 
 ![run](https://s2.loli.net/2022/12/06/1ta8qHFNBWjQuUb.png)
 
-- 設定yml文件
+### 5.2 添加 Fugle Api , LINE Notify 金鑰到 Secrets 裡面
 
-主要是設定 Cron 的部分
+先按照如下操作進到 Secrets 頁面
+
+![run](https://s2.loli.net/2022/12/07/7lvh9u3ayXZkIAm.png)
+
+- 建立一個名為`FUGLE_API_TOKEN`的 secret，裡面填上玉山富果 API 的金鑰
+- 再建立一個名為`LINE_NOTIFY_TOKEN`的 secret，裡面填上 LINE Notify 的金鑰
+- **secret 必須按照以上格式填寫!!!**
+
+
+### 5.3 設定yml文件
+- 主要是設定 Cron 的部分，這裡預設了每個週間的開盤時間 9:00~13:30 內，整點、30 分傳送股價通知一次
+- 詳細的 Cron 設定方式和語法，可以參考: https://crontab.guru/#*_*_*_*_*
+
 ```yml
-stock_price_dataframe = fugle_get_stock_price(portfolio_list)
-message = generate_message(stock_price_dataframe)
-lineNotifyMessage(token, message)
+on:
+  schedule:
+  # scheduled at every 30min during trading hours, (UTC+8), weekdays
+    - cron: "0,30 1,2,3,4,5 * * 1,2,3,4,5"
+  workflow_dispatch:
 ```
 
-### 5.2 添加 Fugle Api , LINE Notify 金鑰
+此外可以看到，在這邊我們提到了剛剛建立的 Secrets，
+
+相當於把 Secrets 內的字串導入了我們的 yml 檔，
+
+呼應了最一開頭 .py 檔裡面的設定金鑰的部分，
+
+os.environ[] 就是為了引用 Secrets 的變數。
+
+(可以回頭看看 Step 0.)
+
+```yml
+env:
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+  FUGLE_API_TOKEN: ${{ secrets.FUGLE_API_TOKEN }}
+  LINE_NOTIFY_TOKEN: ${{ secrets.LINE_NOTIFY_TOKEN }}
+```
 
 ### 5.3 啟用 Actions
+
+Actions 默認是關閉狀態，在 Fork 之後需要先手動執行一次，成功運行才會被激活。
+
+返回項目主頁面，點擊上方的`Actions`，再點擊右側的`Daily Fudan`，再點擊`Run workflow`
+返回项目主页面，点击上方的`Actions`，再点击左侧的`Daily Fudan`，再点击`Run workflow`
+
 
 ### 結語/ 注意事項
