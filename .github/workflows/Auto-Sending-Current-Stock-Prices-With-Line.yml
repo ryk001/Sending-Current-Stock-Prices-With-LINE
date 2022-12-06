@@ -2,7 +2,7 @@ name: Price Info Notify
 
 on:
   schedule:
-  # scheduled at (UTC+8) notify every 30min during trading hours, weekdays
+  # scheduled at every 30min during trading hours, (UTC+8), weekdays
     - cron: "0,30 1,2,3,4,5 * * 1,2,3,4,5"
   workflow_dispatch:
 
