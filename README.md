@@ -1,9 +1,9 @@
-# 教你如何透過Line 定時自動傳送即時股價的通知
+# 教你如何透過 LINE Notify 定時自動傳送即時股價通知
 <span style="color:red;">**重點提示：本程式僅限玉山證券富果帳戶**</span>
 
 (非業配，但好像除了永豐/ 富果沒有其他券商提供即時股價Python API了?)
 
-### 0. 匯入套件、決定要爬哪些股票
+### 0. 匯入套件、決定要爬哪些股票 (超級韭菜投資組合)
 
 ```python
 import requests
@@ -11,7 +11,7 @@ from fugle_realtime import HttpClient
 import pandas as pd
 import numpy as np
 
-portfolio_list = ['1336','4977','4551','2408','3653','3289','3443','6533']
+portfolio_list = ['2330','2317','2609','3037','3034']
 ```
 
 ### 1. 爬取即時股價
@@ -41,7 +41,7 @@ def fugle_get_stock_price(portfolio):
 - 先設定你的金鑰
 
 ```python
-  api_client = HttpClient(api_token = [填入你申請的富果金鑰])
+  api_client = HttpClient(api_token = '填入你申請的富果金鑰')
 ```
 
 開爬！
@@ -49,9 +49,9 @@ def fugle_get_stock_price(portfolio):
 - 依序取得...股票名稱、昨日股價、即時股價、日期、即時股價更新時間
 - 然後填入 DafaFrame 相對應的欄位
 - 利用昨日股價、即時股價計算報酬率
+- 最後吐出填好的 DafaFrame
 
 ```python
-
   for i in range(len(portfolio)):
     
     # 富果 API 讚! (再次強調非業配)
@@ -76,11 +76,46 @@ def fugle_get_stock_price(portfolio):
 
   # 計算報酬率
   stock_price_dataframe['price_change'] = ((stock_price_dataframe['price']/stock_price_dataframe['yesterday_price']-1)*100).astype('float').round(decimals = 2)
+  
+  return stock_price_dataframe
 ```
 
 ### 2. 將數據整理成 Line 訊息
+這部分就...自由發揮啦~
 
-### 3. 利用 Line_notify 傳送通知
+```python
+def generate_message(stock_price_dataframe):
+  # price info string
+  msg = '*價格播報*'+'\n'+'```'+stock_price_dataframe.date[0]+' '+stock_price_dataframe.update_time[0]+'```\n'
+  for i in range(len(stock_price_dataframe)):
+    msg += stock_price_dataframe.stock_name[i] + (6 - len(stock_price_dataframe.stock_name[i]))*'  ' + str(stock_price_dataframe.price[i]) + (6 - len(str(stock_price_dataframe.price[i])))*'  ' +'( _' + str(stock_price_dataframe.price_change[i]) + '%_ )' + '\n'
+  
+  return msg
+```
 
+### 3. 利用 LINE Notify 傳送通知
+這部分要先申請到 LINE Notify 金鑰，申請方式請參閱: https://notify-bot.line.me/zh_TW
 
-### 4. 實現定時自動通知
+```python
+def generate_message(stock_price_dataframe):
+  # price info string
+  msg = '*價格播報*'+'\n'+'```'+stock_price_dataframe.date[0]+' '+stock_price_dataframe.update_time[0]+'```\n'
+  for i in range(len(stock_price_dataframe)):
+    msg += stock_price_dataframe.stock_name[i] + (6 - len(stock_price_dataframe.stock_name[i]))*'  ' + str(stock_price_dataframe.price[i]) + (6 - len(str(stock_price_dataframe.price[i])))*'  ' +'( _' + str(stock_price_dataframe.price_change[i]) + '%_ )' + '\n'
+  
+  return msg
+```
+
+### 4. 上述所有步驟一氣呵成!
+
+```python
+def generate_message(stock_price_dataframe):
+  # price info string
+  msg = '*價格播報*'+'\n'+'```'+stock_price_dataframe.date[0]+' '+stock_price_dataframe.update_time[0]+'```\n'
+  for i in range(len(stock_price_dataframe)):
+    msg += stock_price_dataframe.stock_name[i] + (6 - len(stock_price_dataframe.stock_name[i]))*'  ' + str(stock_price_dataframe.price[i]) + (6 - len(str(stock_price_dataframe.price[i])))*'  ' +'( _' + str(stock_price_dataframe.price_change[i]) + '%_ )' + '\n'
+  
+  return msg
+```
+
+### 5. 實現定時自動通知
