@@ -184,7 +184,7 @@ env:
 
 Actions 默認是關閉狀態，在 Fork 之後需要先手動執行一次，成功運行才會被激活。
 
-返回項目主頁面，點擊上方的`Actions`，再點擊右側的`Daily Fudan`，再點擊`Run workflow`
+返回項目主頁面，點擊上方的`Actions`，再點擊右側的`Sending-Current-Stock-Prices-With-Line`，再點擊`Run workflow`
 
 ![run](https://s2.loli.net/2022/12/07/jQufzoTSVdcbsn2.png)
 
