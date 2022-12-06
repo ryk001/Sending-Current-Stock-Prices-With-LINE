@@ -38,20 +38,17 @@ def fugle_get_stock_price(portfolio):
   stock_price_dataframe['ticker'] = portfolio
 ```
 ### 1-2. 開始爬取即時股價資訊
-- 先設定你的金鑰
-
-```python
-  api_client = HttpClient(api_token = '填入你申請的富果金鑰')
-```
-
-### 1-3. 開爬！
-- 用for loop 依序 run 過股票代號 list
+- 設定 Fugle API 的金鑰
+- 用 for loop 依序 run 過股票代號 list
 - 依序取得...股票名稱、昨日股價、即時股價、日期、即時股價更新時間
 - 然後填入 DafaFrame 相對應的欄位
 - 利用昨日股價、即時股價計算報酬率
 - 最後吐出填好的 DafaFrame
 
 ```python
+  # Fugle API 金鑰
+  api_client = HttpClient(api_token = '填入你申請的富果金鑰')
+  
   for i in range(len(portfolio)):
     
     # 富果 API 讚! (再次強調非業配)
@@ -85,37 +82,40 @@ def fugle_get_stock_price(portfolio):
 
 ```python
 def generate_message(stock_price_dataframe):
-  # price info string
-  msg = '*價格播報*'+'\n'+'```'+stock_price_dataframe.date[0]+' '+stock_price_dataframe.update_time[0]+'```\n'
-  for i in range(len(stock_price_dataframe)):
-    msg += stock_price_dataframe.stock_name[i] + (6 - len(stock_price_dataframe.stock_name[i]))*'  ' + str(stock_price_dataframe.price[i]) + (6 - len(str(stock_price_dataframe.price[i])))*'  ' +'( _' + str(stock_price_dataframe.price_change[i]) + '%_ )' + '\n'
+  # 標題: 價格播報/ 日期/ 時間
+  message = '*價格播報*'+'\n'+'```'+stock_price_dataframe.date[0]+' '+stock_price_dataframe.update_time[0]+'```\n'
   
-  return msg
+  # 細項: 股票名稱/ 即時股價/ 漲跌%
+  for i in range(len(stock_price_dataframe)):
+    message += stock_price_dataframe.stock_name[i] + (6 - len(stock_price_dataframe.stock_name[i]))*'  ' + str(stock_price_dataframe.price[i]) + (6 - len(str(stock_price_dataframe.price[i])))*'  ' +'( _' + str(stock_price_dataframe.price_change[i]) + '%_ )' + '\n'
+  
+  return message
 ```
 
 ### 3. 利用 LINE Notify 傳送通知
 這部分要先申請到 LINE Notify 金鑰，申請方式請參閱: https://notify-bot.line.me/zh_TW
 
 ```python
-def generate_message(stock_price_dataframe):
-  # price info string
-  msg = '*價格播報*'+'\n'+'```'+stock_price_dataframe.date[0]+' '+stock_price_dataframe.update_time[0]+'```\n'
-  for i in range(len(stock_price_dataframe)):
-    msg += stock_price_dataframe.stock_name[i] + (6 - len(stock_price_dataframe.stock_name[i]))*'  ' + str(stock_price_dataframe.price[i]) + (6 - len(str(stock_price_dataframe.price[i])))*'  ' +'( _' + str(stock_price_dataframe.price_change[i]) + '%_ )' + '\n'
-  
-  return msg
+# LINE Notify 金鑰
+token = '你的LINE Notify 金鑰'
+
+def lineNotifyMessage(token, msg):
+    headers = {
+        "Authorization": "Bearer " + token, 
+        "Content-Type" : "application/x-www-form-urlencoded"
+    }
+
+    payload = {'message': msg }
+    r = requests.post("https://notify-api.line.me/api/notify", headers = headers, params = payload)
+    return r.status_code
 ```
 
 ### 4. 上述所有步驟一氣呵成!
 
 ```python
-def generate_message(stock_price_dataframe):
-  # price info string
-  msg = '*價格播報*'+'\n'+'```'+stock_price_dataframe.date[0]+' '+stock_price_dataframe.update_time[0]+'```\n'
-  for i in range(len(stock_price_dataframe)):
-    msg += stock_price_dataframe.stock_name[i] + (6 - len(stock_price_dataframe.stock_name[i]))*'  ' + str(stock_price_dataframe.price[i]) + (6 - len(str(stock_price_dataframe.price[i])))*'  ' +'( _' + str(stock_price_dataframe.price_change[i]) + '%_ )' + '\n'
-  
-  return msg
+stock_price_dataframe = fugle_get_stock_price(portfolio_list)
+message = generate_message(stock_price_dataframe)
+lineNotifyMessage(token, message)
 ```
 
 ### 5. 實現定時自動通知
