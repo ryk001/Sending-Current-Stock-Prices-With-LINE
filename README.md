@@ -152,7 +152,7 @@ lineNotifyMessage(LINE_NOTIFY_TOKEN, message)
 ![run](https://s2.loli.net/2022/12/06/1ta8qHFNBWjQuUb.png)
 
 ### 5.2 添加 Fugle, LINE 金鑰到 Secrets
-(如果不設置 Secrets 的話所有人都可以傳 Line 給你，然後也可以用你的富果金鑰來爬蟲😂)
+(如果不設置 Secrets 的話所有人都可以傳 Line 給你，也可以用你的富果金鑰來爬蟲😂)
 - 回到專案頁面，依次點擊`Settings`-->`Secrets`-->`New secret`
 
 ![run](https://s2.loli.net/2022/12/07/7lvh9u3ayXZkIAm.png)
