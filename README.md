@@ -29,7 +29,7 @@ import pandas as pd
 import numpy as np
 
 # 匯入關注清單
-portfolio_watchlist = open('portfolio_watchlist.txt', 'r').read().split(',')
+portfolio_watchlist = open('portfolio_watchlist.txt', 'r').read().strip().split(',')
 
 # secret token
 FUGLE_API_TOKEN = os.environ['FUGLE_API_TOKEN']
@@ -130,7 +130,7 @@ def lineNotifyMessage(token, msg):
 ## 4. 成果展示
 
 ```python
-stock_price_dataframe = fugle_get_stock_price(portfolio_list)
+stock_price_dataframe = fugle_get_stock_price(portfolio_watchlist)
 message = generate_message(stock_price_dataframe)
 lineNotifyMessage(LINE_NOTIFY_TOKEN, message)
 ```
