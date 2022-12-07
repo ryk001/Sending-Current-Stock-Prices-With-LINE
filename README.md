@@ -32,7 +32,8 @@ LINE_NOTIFY_TOKEN = os.environ['LINE_NOTIFY_TOKEN']
 def fugle_get_stock_price(portfolio):
 ```
 
-### 1-1. 建立一個空的 DafaFrame 用來寫入資料
+### 1-1. 建立一個空的 DafaFrame
+- 用來寫入從 API 獲取的資料
 - 欄位包含...股票代號、股票名稱、日期、即時股價更新時間、即時股價、昨日股價、股價變動%數
 - 指定股票代號欄位為導入的變數 (股票代號 list)
 
