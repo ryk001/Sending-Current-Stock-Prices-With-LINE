@@ -6,6 +6,7 @@
 ## 0. 基本設置
 - 匯入套件
 - 建立一個股票代號 list
+  - 這邊可以自行編輯，寫入自己想要的股票代號
 - 設定各種金鑰
   - Fugle API 的金鑰，申請方式請參考: https://developer.fugle.tw
   - LINE Notify API 的金鑰，申請方式請參考: https://notify-bot.line.me/zh_TW
