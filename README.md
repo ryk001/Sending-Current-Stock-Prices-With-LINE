@@ -28,10 +28,10 @@ from fugle_realtime import HttpClient
 import pandas as pd
 import numpy as np
 
-# 超級韭菜投資組合
-portfolio_list = ['2330','2317','2609','3037','3034']
+# 匯入關注清單
+portfolio_watchlist = open('portfolio_watchlist.txt', 'r').read().split(',')
 
-# TOKEN
+# secret token
 FUGLE_API_TOKEN = os.environ['FUGLE_API_TOKEN']
 LINE_NOTIFY_TOKEN = os.environ['LINE_NOTIFY_TOKEN']
 ```
