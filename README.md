@@ -3,7 +3,7 @@
 
 (非業配，但好像除了永豐/ 富果沒有其他券商提供即時股價Python API了?)
 
-### 0. 需要的東西先準備好
+## 0. 基本設置
 - 匯入套件
 - 建立一個股票代號 list
 - 設定各種金鑰
@@ -25,7 +25,7 @@ FUGLE_API_TOKEN = os.environ['FUGLE_API_TOKEN']
 LINE_NOTIFY_TOKEN = os.environ['LINE_NOTIFY_TOKEN']
 ```
 
-### 1. 爬取即時股價
+## 1. 爬取即時股價
 - 建立一個函數，並且變數是前面的股票代號 list
 
 ```python
@@ -84,7 +84,7 @@ def fugle_get_stock_price(portfolio):
   return stock_price_dataframe
 ```
 
-### 2. 將數據整理成 Line 訊息
+## 2. 將數據整理成 Line 訊息
 這部分就...自由發揮啦~
 
 Line 訊息粗體字、斜體字、紅字等等輸入方法參考: https://finance.ettoday.net/news/1911692
@@ -101,7 +101,7 @@ def generate_message(stock_price_dataframe):
   return message
 ```
 
-### 3. 利用 LINE Notify 傳送通知
+## 3. 利用 LINE Notify 傳送通知
 
 ```python
 def lineNotifyMessage(token, msg):
@@ -115,7 +115,7 @@ def lineNotifyMessage(token, msg):
     return r.status_code
 ```
 
-### 4. 成果展示
+## 4. 成果展示
 
 ```python
 stock_price_dataframe = fugle_get_stock_price(portfolio_list)
@@ -126,7 +126,7 @@ lineNotifyMessage(LINE_NOTIFY_TOKEN, message)
 
 (由於在非開盤時間傳送通知，所以會得到最後收盤價)
 
-### 5. 實現定時自動通知
+## 5. 實現定時自動通知
 
 這部分的透過 GitHub 的 Actions 功能實現，
 
@@ -188,7 +188,7 @@ Actions 默認是關閉狀態，在 Fork 之後需要先手動執行一次，成
 
 ![run](https://s2.loli.net/2022/12/07/jQufzoTSVdcbsn2.png)
 
-### 結語/ 注意事項
+## 結語/ 注意事項
 - 約每 60 天 Actions 會重設一次，要記得上 GitHub 重新手動 Run
 - GitHub 的 Actions 功能會延遲 5~30 分鐘，若有更可靠的自動化方法歡迎交流😍
 - 小弟不才，第一次寫 GitHub，若有什麼指教請大力一點
