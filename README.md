@@ -140,7 +140,7 @@ lineNotifyMessage(LINE_NOTIFY_TOKEN, message)
 
 ![run](https://s2.loli.net/2022/12/06/1ta8qHFNBWjQuUb.png)
 
-### 5.2 添加 Fugle Api , LINE Notify 金鑰到 Secrets 裡面
+### 5.2 添加 Fugle, LINE 金鑰到 Secrets
 
 - 回到專案頁面，依次點擊`Settings`-->`Secrets`-->`New secret`
 
