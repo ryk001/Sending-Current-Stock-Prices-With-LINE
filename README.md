@@ -191,13 +191,15 @@ env:
   LINE_NOTIFY_TOKEN: ${{ secrets.LINE_NOTIFY_TOKEN }}
 ```
 
-### 5.3 啟用 Actions
+### 5.4 啟用 Actions
 
 Actions 默認是關閉狀態，在 Fork 之後需要先手動執行一次，成功運行才會被激活。
 
 返回項目主頁面，點擊上方的`Actions`，再點擊右側的`Sending-Current-Stock-Prices-With-Line`，再點擊`Run workflow`
 
 ![run](https://s2.loli.net/2022/12/07/jQufzoTSVdcbsn2.png)
+
+運行成功後，就大功告成啦! 可以回家睏霸數錢了(並沒有)
 
 ## 結語/ 注意事項
 
