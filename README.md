@@ -1,4 +1,4 @@
-# 手把手教你透過 Python + GitHub 定時自動傳送即時股價 Line 通知
+# 透過 Python + GitHub 定時自動傳送即時股價 Line 通知
 <span style="color:red;">**重點提示：本程式僅限玉山證券富果帳戶**</span>
 
 (非業配，但好像除了永豐/ 富果沒有其他券商提供即時股價 Python API 了?)
