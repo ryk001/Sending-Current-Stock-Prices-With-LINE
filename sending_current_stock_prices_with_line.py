@@ -6,8 +6,6 @@ import os
 
 # 匯入關注清單
 portfolio_watchlist = open('portfolio_watchlist.txt', 'r').read().strip().split(',')
-lis
-print(portfolio_watchlist)
 
 # secret token
 FUGLE_API_TOKEN = os.environ['FUGLE_API_TOKEN']
