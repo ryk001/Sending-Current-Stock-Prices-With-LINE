@@ -133,7 +133,7 @@ lineNotifyMessage(LINE_NOTIFY_TOKEN, message)
 
 詳細來說是透過一個 yml 檔案來驅動我們的 .py 檔，
 
-可以理解成透過 yml 檔案 來和 Actions 功能互動。
+可以理解我們是用 yml 檔案 來和 Actions 功能溝通。
 
 ### 5.1 複製這個專案到自己的帳號
 - 项目地址：[github/Sending-Current-Stock-Prices-With-Line](https://github.com/ryk001/Sending-Current-Stock-Prices-With-Line.git)
@@ -142,7 +142,7 @@ lineNotifyMessage(LINE_NOTIFY_TOKEN, message)
 ![run](https://s2.loli.net/2022/12/06/1ta8qHFNBWjQuUb.png)
 
 ### 5.2 添加 Fugle, LINE 金鑰到 Secrets
-
+(如果不設置 Secrets 的話所有人都可以傳 Line 給你，然後也可以用你的富果金鑰來爬蟲😂)
 - 回到專案頁面，依次點擊`Settings`-->`Secrets`-->`New secret`
 
 ![run](https://s2.loli.net/2022/12/07/7lvh9u3ayXZkIAm.png)
