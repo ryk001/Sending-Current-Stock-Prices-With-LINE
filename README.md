@@ -14,8 +14,9 @@
 
 ## 0. 基本設置
 - 匯入套件
-- 建立一個股票代號 list
-  - 這邊可以自行編輯，寫入自己想要的股票代號
+- 填寫要關注的股票代號
+  - 前往編輯 `portfolio_watchlist.txt` 文件
+  - 按照文件內相同格式輸入要接收通知的股票代號
 - 設定各種金鑰
   - Fugle API 的金鑰，申請方式請參考: https://developer.fugle.tw
   - LINE Notify API 的金鑰，申請方式請參考: https://notify-bot.line.me/zh_TW
