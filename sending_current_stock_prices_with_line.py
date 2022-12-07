@@ -5,7 +5,8 @@ import numpy as np
 import os
 
 # 匯入關注清單
-portfolio_watchlist = open('portfolio_watchlist.txt', 'r').read().split(',')
+portfolio_watchlist = open('portfolio_watchlist.txt', 'r').read().strip().split(',')
+lis
 print(portfolio_watchlist)
 
 # secret token
