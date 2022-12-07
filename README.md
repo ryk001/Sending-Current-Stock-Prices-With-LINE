@@ -141,9 +141,9 @@ lineNotifyMessage(LINE_NOTIFY_TOKEN, message)
 
 這部分的透過 GitHub 的 Actions 功能實現，
 
-詳細來說是透過一個 yml 檔案來驅動我們的 .py 檔，
+詳細來說是我們是用一個 yml 檔案 來和 Actions 功能互動，
 
-可以理解我們是用 yml 檔案 來和 Actions 功能溝通。
+然後這個 yml 檔案再來驅動我們的 .py 檔。
 
 ### 5.1 複製這個專案到自己的帳號
 - 项目地址：[github/Sending-Current-Stock-Prices-With-Line](https://github.com/ryk001/Sending-Current-Stock-Prices-With-Line.git)
