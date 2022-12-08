@@ -147,7 +147,7 @@ lineNotifyMessage(LINE_NOTIFY_TOKEN, message)
 然後這個 yml 檔案再來驅動我們的 .py 檔。
 
 ### 5.1 複製這個專案到自己的帳號
-- 项目地址：[github/Sending-Current-Stock-Prices-With-Line](https://github.com/ryk001/Sending-Current-Stock-Prices-With-Line.git)
+- 项目地址：[github/Sending-Current-Stock-Prices-With-LINE](https://github.com/ryk001/Sending-Current-Stock-Prices-With-LINE.git)
 - 點擊右上角 Fork 專案至自己的帳號底下
 
 ![run](https://s2.loli.net/2022/12/06/1ta8qHFNBWjQuUb.png)
