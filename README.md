@@ -1,4 +1,4 @@
-# 透過 Python + GitHub 定時自動傳送即時股價 Line 通知
+# 透過 Python + GitHub 定時自動傳送即時股價 LINE 通知
 <span style="color:red;">**重點提示：本程式僅限玉山證券富果帳戶**</span>
 
 (非業配，但好像除了永豐/ 富果沒有其他券商提供即時股價 Python API 了?)
@@ -6,9 +6,9 @@
 ## 前情提要
 通過這篇教學，你將可以學到
 - 如何透過富果 API 爬取即時股價
-- 如何透過 Python 傳送 Line 訊息通知
+- 如何透過 Python 傳送 LINE 訊息通知
 - 如何透過 GitHub 的 Actions 功能實現自動化、定時執行
-- 整合以上三者，將得到一個 **定時自動傳送即時股價 Line 通知機器人!!!**
+- 整合以上三者，將得到一個 **定時自動傳送即時股價 LINE 通知機器人!!!**
 
 廢話不多說，我們馬上開始吧!
 
@@ -153,7 +153,7 @@ lineNotifyMessage(LINE_NOTIFY_TOKEN, message)
 ![run](https://s2.loli.net/2022/12/06/1ta8qHFNBWjQuUb.png)
 
 ### 5.2 添加 Fugle, LINE 金鑰到 Secrets
-(如果不設置 Secrets 的話所有人都可以傳 Line 給你，也可以用你的富果金鑰來爬蟲😂)
+(如果不設置 Secrets 的話所有人都可以傳 LINE 給你，也可以用你的富果金鑰來爬蟲😂)
 - 回到專案頁面，依次點擊`Settings`-->`Secrets`-->`New secret`
 
 ![run](https://s2.loli.net/2022/12/07/7lvh9u3ayXZkIAm.png)
