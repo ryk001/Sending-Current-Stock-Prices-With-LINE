@@ -63,7 +63,7 @@ def fugle_get_stock_price(portfolio):
 - 依序取得 股票名稱、昨日股價、即時股價、日期、即時股價更新時間
 - 填入 DafaFrame 相對應的欄位
 - 利用昨日股價、即時股價計算漲跌幅
-- 按照漲跌幅排序 DafaFrame
+- 按照漲跌幅排序
 - 最後吐出填好的 DafaFrame
 
 ```python
@@ -91,7 +91,7 @@ def fugle_get_stock_price(portfolio):
     stock_price_dataframe['yesterday_price'][i] = yesterday_price
     stock_price_dataframe['price'][i] = price
 
-  # 計算報酬率
+  # 計算漲跌幅
   stock_price_dataframe['price_change'] = ((stock_price_dataframe['price']/stock_price_dataframe['yesterday_price']-1)*100).astype('float').round(decimals = 2)
   
   # 按照漲跌幅排序
