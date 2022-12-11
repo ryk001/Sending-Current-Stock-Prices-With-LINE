@@ -49,6 +49,9 @@ def fugle_get_stock_price(portfolio):
   # 計算報酬率
   stock_price_dataframe['price_change'] = ((stock_price_dataframe['price']/stock_price_dataframe['yesterday_price']-1)*100).astype('float').round(decimals = 2)
   
+  # 按照漲跌幅排序
+  stock_price_dataframe = stock_price_dataframe.sort_values(by=['price_change'], ascending=False)
+  
   return stock_price_dataframe
 
 def generate_message(stock_price_dataframe):
