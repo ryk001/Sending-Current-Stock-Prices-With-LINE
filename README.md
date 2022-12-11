@@ -138,7 +138,7 @@ stock_price_dataframe = fugle_get_stock_price(portfolio_watchlist)
 message = generate_message(stock_price_dataframe)
 lineNotifyMessage(LINE_NOTIFY_TOKEN, message)
 ```
-![run](https://s2.loli.net/2022/12/11/WAtrdpG7YEbS3hf.png)
+![run](https://s2.loli.net/2022/12/11/CkI6QzmB72ULnTj.png)
 
 (由於在非開盤時間傳送通知，所以會得到最後收盤價)
 
